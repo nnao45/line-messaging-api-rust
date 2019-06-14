@@ -13,20 +13,15 @@ use sources::{ LineSource, LineSourceType };
 
 static BASE_URL: &'static str = "https://api.line.me/v2/bot";
 
+#[derive(Clone)]
 pub struct LineBot {
     pub config: LineBotConfig,
     pub client: Client,
 }
 
-impl Clone for LineBot {
-    fn clone(&self) -> Self {
-        self.to_owned()
-    }
-}
-
 impl LineBot {
     pub fn new(channel_secret: &str, channel_token: &str) -> LineBot {
-        LineBot { 
+        LineBot {
             config: LineBotConfig::new(channel_secret, channel_token),
             client: Client::new()
         }
