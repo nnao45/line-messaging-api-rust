@@ -45,35 +45,35 @@ impl LineBot {
         expect_signature
     }
 
-    pub fn push_message(&self, to: &str, msg: LineMessage) {
+    pub fn push_message(&self, to: &str, msg: LineMessage) -> Response{
         let messages = vec![msg];
         let data = json!({
             "to": to,
             "messages": messages
         });
 
-        self.post("/message/push", data, json!({}));
+        self.post("/message/push", data, json!({}))
     }
 
-    pub fn push_messages(&self, to: &str, msg: Vec<LineMessage>) {
+    pub fn push_messages(&self, to: &str, msg: Vec<LineMessage>) -> Response{
         let data = json!({
             "to": to,
             "messages": msg
         });
 
-        self.post("/message/push", data, json!({}));
+        self.post("/message/push", data, json!({}))
     }
 
-    pub fn get_content_from_message(&self, message: LineMessage) {
+    pub fn get_content_from_message(&self, message: LineMessage) -> Response{
         self.get_content(message.get_id())
     }
 
-    pub fn get_content(&self, message_id: String) {
+    pub fn get_content(&self, message_id: String) -> Response{
         let endpoint = format!("/message/{}/content", message_id);
         let mut data = HashMap::new();
 
         data.insert(String::from("responseType"), String::from("stream"));
-        self.get(endpoint.as_str(), data);
+        self.get(endpoint.as_str(), data)
     }
 
     pub fn get_profile_from_user_source(&self, user: LineSource) {
