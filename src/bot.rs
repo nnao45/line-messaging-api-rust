@@ -18,6 +18,12 @@ pub struct LineBot {
     pub client: Client,
 }
 
+impl Clone for LineBot {
+    fn clone(&self) -> Self {
+        self.to_owned()
+    }
+}
+
 impl LineBot {
     pub fn new(channel_secret: &str, channel_token: &str) -> LineBot {
         LineBot { 
