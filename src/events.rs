@@ -1,3 +1,4 @@
+use reqwest::Response;
 use serde_json::Value;
 
 use bot::LineBot;
@@ -105,12 +106,12 @@ impl ReplyableEvent {
     }
 
 
-    pub fn reply(&self, msg: Vec<LineMessage>, bot: LineBot) {
+    pub fn reply(&self, msg: Vec<LineMessage>, bot: LineBot) -> Response{
         let data = json!({
             "replyToken": self.reply_token,
             "messages": msg
         });
-        bot.post("/message/reply", data, json!({}));
+        bot.post("/message/reply", data, json!({}))
     }
 
     pub fn get_message(&self) -> Option<LineMessage> {
